@@ -21,6 +21,8 @@ function draw(){if(!map||!showing)return;const key=current.map(s=>s.id).join(','
  const shown=current.length-none;$('mapNote').textContent=`${shown.toLocaleString('ja-JP')}件を地図に表示。ピンをタップするとお店の情報が出ます。`+(none?`住所が「市内各所」などで場所を特定できない${none}件は地図に出ないため、リストで確認してください。`:'');
  if(markers.length&&current.length<stores.length)map.fitBounds(layer.getBounds(),{padding:[30,30],maxZoom:16});}
 window.onRender=(list,c)=>{current=list;camp=c;$('legendHi').textContent=(c?30:5)+'％';$('legendLo').textContent=(c?10:1)+'％';draw();};
+// 最初の一覧表示はこのスクリプトより先に済んでいるので、その結果（条件なし＝全店）を引き継ぐ
+onRender(matches,campaign());
 async function setView(m){showing=m;for(const [id,on] of [['viewList',!m],['viewMap',m]]){$(id).classList.toggle('selected',on);$(id).setAttribute('aria-pressed',String(on));}
  document.querySelector('.results-panel').classList.toggle('map-mode',m);$('mapWrap').hidden=!m;try{localStorage.setItem('ichicoView',m?'map':'list');}catch{}
  if(!m)return;if(!map)$('mapNote').textContent='地図を読み込んでいます…';try{await ensure();}catch{$('mapNote').textContent='地図を読み込めませんでした。通信環境を確認してください。';return;}map.invalidateSize();lastKey='';draw();}
