@@ -2,9 +2,11 @@
 import fs from 'node:fs';
 const r = p => fs.readFileSync(new URL('../' + p, import.meta.url), 'utf8');
 const meta = JSON.parse(r('data/stores.json'));
+const geo = JSON.parse(r('data/geocode.json'));
+for (const s of meta.stores) { const g = geo[s.address]; if (g) Object.assign(s, { lat: g.lat, lng: g.lng, geo: g.level }); }
 const dot = d => d.replaceAll('-', '.');
 const vals = {
-  CSS: r('src/style.css'), JS: r('src/app.js'),
+  CSS: r('src/style.css'), JS: r('src/app.js'), MAPJS: r('src/map.js'),
   DATA: JSON.stringify(meta).replace(/</g, '\u003c'),
   COUNT: meta.stores.length.toLocaleString('ja-JP'), UPDATED: dot(meta.updated), CHECKED: dot(meta.checked),
 };
