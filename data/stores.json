@@ -1,6 +1,6 @@
 {
- "updated": "2026-10-31",
- "checked": "2026-11-07",
+ "updated": "2026-11-14",
+ "checked": "2026-11-14",
  "stores": [
   {
    "id": 1,
@@ -14245,8 +14245,8 @@
    "type": "焼肉",
    "normalRate": 5,
    "campaignRate": 30,
-   "cash": false,
-   "card": false,
+   "cash": true,
+   "card": true,
    "furusato": true,
    "source": "https://www.city.ichikawa.lg.jp/ichico-store/?search_flg=1&page=22"
   },
